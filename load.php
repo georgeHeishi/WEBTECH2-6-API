@@ -38,6 +38,7 @@ foreach ($xml->children() as $row) {
     $day_id = $daysController->selectDayId(intval($day), intval($month));
 
     foreach (array_keys((array)$row) as $item) {
+
         if (array_key_exists($item, $countries)) {
             $code = $item;
             $title = $countries[$item];
@@ -72,6 +73,7 @@ foreach ($xml->children() as $row) {
             $country_id = $countriesController->selectCountryId($code);
 
             $type = "memorial";
+
             $value = trim($row->$item);
             $recordsController->insertRecord($day_id, $country_id, $type, $value);
         }

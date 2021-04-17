@@ -11,8 +11,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-    <link href="/sse/assets/css/style.css" rel="stylesheet">
-    <script src="/sse/assets/js/script.js"></script>
+    <link href="/namedays/assets/css/style.css" rel="stylesheet">
+    <script src="/namedays/assets/js/script.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -22,7 +22,70 @@
         <div class="col-lg ">
             <main class="site-content">
                 <div class="container-fluid">
-
+                    <div class="row">
+                        <h4>Na základe zadaného dátumu získať informáciu, kto má v daný deň meniny na
+                            Slovensku, resp. v niektorom inom uvedenom štáte</h4>
+                        <form>
+                            <div class="form-group">
+                                <label for="nameday">Deň menín (dd.mm.)</label>
+                                <input type="text" class="form-control" id="nameday" value="01.01.">
+                            </div>
+                            <div class="form-group">
+                                <label for="namedays-country">Kód štátu (napr. SK)</label>
+                                <input type="text" class="form-control" id="namedays-country" value="SK">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="namedays-submit">Submit</button>
+                        </form>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <h4>Na základe uvedeného mena a štátu získať informáciu, kedy má osoba s týmto
+                            menom meniny v danom štáte;</h4>
+                        <form>
+                            <div class="form-group">
+                                <label for="name">Meno</label>
+                                <input type="text" class="form-control" id="name" value="Adam">
+                            </div>
+                            <div class="form-group">
+                                <label for="names-country">Kód štátu (napr. SK)</label>
+                                <input type="text" class="form-control" id="names-country" value="SK">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="names-submit">Submit</button>
+                        </form>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <h4>Získať zoznam všetkých sviatkov na Slovensku alebo v Česku (element "SKsviatky") spolu s
+                                dňom, na ktorý tieto sviatky pripadajú;</h4>
+                        <form>
+                            <div class="form-group">
+                                <label for="holidays-day">Deň sviatku (dd.mm.)</label>
+                                <input type="text" class="form-control" id="holidays-day" value="01.01">
+                            </div>
+                            <div class="form-group">
+                                <label for="holidays-country">Kód štátu (SK alebo CZ)</label>
+                                <input type="text" class="form-control" id="holidays-country" value="SK">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="holidays-submit">Submit</button>
+                        </form>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <h4>Získať zoznam všetkých pamätných dní na Slovensku (element "SKdni") spolu s
+                                dňom, na ktorý tieto dni pripadajú</h4>
+                        <form>
+                        <div class="form-group">
+                            <label for="memorials-day">Pamäťný deň (dd.mm.)</label>
+                            <input type="text" class="form-control" id="memorials-day" value="01.01">
+                        </div>
+                        <button type="button" class="btn btn-primary" id="memorials-submit">Submit</button>
+                        </form>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <h4>Vložiť nové meno do kalendára (element "SKd") k určitému dňu.</h4>
+                        <h1 style="color: yellow"> TODO </h1>
+                    </div>
                 </div>
             </main>
         </div>
