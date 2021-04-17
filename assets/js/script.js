@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const namesSubmit = document.getElementById("names-submit");
     const holidaysSubmit = document.getElementById("holidays-submit");
     const memorialsSubmit = document.getElementById("memorials-submit");
+    const createSubmit = document.getElementById("create-submit");
 
     let request;
 
@@ -11,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const namedaysCountry = document.getElementById("namedays-country");
         const url = '/namedays/api.php/namedays/' + nameday.value + '/countries/' + namedaysCountry.value;
 
-        request = createGetRequest(url);
+        request = createRequest(url,'GET');
         fetchRequest(request);
     });
 
@@ -20,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const namesCountry = document.getElementById("names-country");
         const url = '/namedays/api.php/names/' + name.value + '/countries/' + namesCountry.value;
 
-        request = createGetRequest(url);
+        request = createRequest(url,'GET');
         fetchRequest(request);
     });
 
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const holidaysCountry = document.getElementById("holidays-country");
         const url = '/namedays/api.php/days/' + holidaysDay.value + '/countries/' + holidaysCountry.value + '/holidays';
 
-        request = createGetRequest(url);
+        request = createRequest(url,'GET');
         fetchRequest(request);
     });
 
@@ -37,13 +38,22 @@ document.addEventListener("DOMContentLoaded", () => {
         const memorialsDay = document.getElementById("memorials-day");
         const url = '/namedays/api.php/days/' + memorialsDay.value + '/memorials';
 
-        request = createGetRequest(url);
+        request = createRequest(url,'GET');
         fetchRequest(request);
     })
 
-    function createGetRequest(url){
+    createSubmit.addEventListener("click", () => {
+        const createDay = document.getElementById("create-day");
+        const createName = document.getElementById("create-name");
+        const url = '/namedays/api.php/names/' + createName.value + '/namedays/' + createDay.value;
+
+        request = createRequest(url,'POST');
+        fetchRequest(request);
+    })
+
+    function createRequest(url, method){
         return new Request(url, {
-            method: 'GET',
+            method: method,
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
             }

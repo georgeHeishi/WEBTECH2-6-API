@@ -59,7 +59,7 @@
                     <hr>
                     <div class="row">
                         <h4>Získať zoznam všetkých sviatkov na Slovensku alebo v Česku (element "SKsviatky") spolu s
-                                dňom, na ktorý tieto sviatky pripadajú;</h4>
+                            dňom, na ktorý tieto sviatky pripadajú;</h4>
                         <form>
                             <div class="form-group">
                                 <label for="holidays-day">Deň sviatku (dd.mm.)</label>
@@ -75,19 +75,27 @@
                     <hr>
                     <div class="row">
                         <h4>Získať zoznam všetkých pamätných dní na Slovensku (element "SKdni") spolu s
-                                dňom, na ktorý tieto dni pripadajú</h4>
+                            dňom, na ktorý tieto dni pripadajú</h4>
                         <form>
-                        <div class="form-group">
-                            <label for="memorials-day">Pamäťný deň (dd.mm.)</label>
-                            <input type="text" class="form-control" id="memorials-day" value="01.01.">
-                        </div>
-                        <button type="button" class="btn btn-primary" id="memorials-submit">Submit</button>
+                            <div class="form-group">
+                                <label for="memorials-day">Pamäťný deň (dd.mm.)</label>
+                                <input type="text" class="form-control" id="memorials-day" value="01.01.">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="memorials-submit">Submit</button>
                         </form>
                     </div>
                     <hr>
                     <div class="row">
                         <h4>Vložiť nové meno do kalendára (element "SKd") k určitému dňu.</h4>
-                        <h1 style="color: yellow"> TODO </h1>
+                        <form>
+                            <div class="form-group">
+                                <label for="create-day">Deň menín (dd.mm.)</label>
+                                <input type="text" class="form-control" id="create-day" value="01.01.">
+                                <label for="create-name">Meno</label>
+                                <input type="text" class="form-control" id="create-name" value="Morečko">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="create-submit">Submit</button>
+                        </form>
                     </div>
                 </div>
             </main>

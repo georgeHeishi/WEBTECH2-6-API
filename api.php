@@ -23,25 +23,39 @@ $handler = null;
 switch ($method) {
     case 'GET':
         $handler = new ReadHandler();
+        if (is_null($response = $handler->processRequest($request))) {
+            $response = array();
+            $response["error"] = true;
+            echo json_encode($response);
+            http_response_code(404);
+        } else {
+            $response["error"] = false;
+            echo json_encode($response);
+            http_response_code(200);  //http_response_code — Get or Set the HTTP response code
+        }
         break;
     case 'POST':
         $handler = new CreateHandler();
+        if (is_null($return = $handler->createName($request))) {
+            $response = array();
+            $response["error"] = true;
+            echo json_encode($response);
+            http_response_code(404);
+        } else {
+            if($return){
+                $response["error"] = false;
+                $response["record"] = array("name" => $request[1],"day" => $request[3]);
+                echo json_encode($response);
+                http_response_code(201);  //http_response_code — Get or Set the HTTP response code
+            }else{
+                $response["error"] = true;
+                echo json_encode($response);
+                http_response_code(409);  //http_response_code — Get or Set the HTTP response code
+            }
+        }
         break;
     default:
         http_response_code(405);
         die();
 }
-
-if (is_null($response = $handler->processRequest($request))){
-    $response = array();
-    $response["error"] = true;
-    $response["request"] = $request;
-    echo json_encode( $response);
-    http_response_code(404);
-}else{
-    $response["error"] = false;
-    echo json_encode($response);
-    http_response_code(200);  //http_response_code — Get or Set the HTTP response code
-}
-
 

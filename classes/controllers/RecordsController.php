@@ -42,6 +42,21 @@ class RecordsController
         $this->insertStm->execute();
     }
 
+    public function insertRecordNonIgnore($day_id, $country_id, $type, $value)
+    {
+        $stm = $this->conn->prepare("INSERT INTO records (day_id, country_id, type, value) VALUES (:day_id, :country_id , :type ,:value)");
+        try {
+            $stm->bindParam(":day_id", $day_id, PDO::PARAM_INT);
+            $stm->bindParam(":country_id", $country_id, PDO::PARAM_INT);
+            $stm->bindParam(":type", $type);
+            $stm->bindParam(":value", $value);
+            $stm->execute();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
     public function selectByDayIdCountryId($dayId, $countryId, $type)
     {
         $stm = $this->conn->prepare("SELECT value FROM records WHERE day_id=:day_id AND country_id=:country_id AND type=:type");
