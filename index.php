@@ -23,6 +23,9 @@
             <main class="site-content">
                 <div class="container-fluid">
                     <div class="row">
+                        <div id="response"></div>
+                    </div>
+                    <div class="row">
                         <h4>Na základe zadaného dátumu získať informáciu, kto má v daný deň meniny na
                             Slovensku, resp. v niektorom inom uvedenom štáte</h4>
                         <form>
@@ -60,7 +63,7 @@
                         <form>
                             <div class="form-group">
                                 <label for="holidays-day">Deň sviatku (dd.mm.)</label>
-                                <input type="text" class="form-control" id="holidays-day" value="01.01">
+                                <input type="text" class="form-control" id="holidays-day" value="01.01.">
                             </div>
                             <div class="form-group">
                                 <label for="holidays-country">Kód štátu (SK alebo CZ)</label>
@@ -76,7 +79,7 @@
                         <form>
                         <div class="form-group">
                             <label for="memorials-day">Pamäťný deň (dd.mm.)</label>
-                            <input type="text" class="form-control" id="memorials-day" value="01.01">
+                            <input type="text" class="form-control" id="memorials-day" value="01.01.">
                         </div>
                         <button type="button" class="btn btn-primary" id="memorials-submit">Submit</button>
                         </form>

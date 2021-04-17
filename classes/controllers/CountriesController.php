@@ -1,5 +1,5 @@
 <?php
-require_once (__DIR__ . "/../database/Database.php");
+require_once(__DIR__ . "/../database/Database.php");
 
 class CountriesController
 {
@@ -35,9 +35,13 @@ class CountriesController
     public function selectCountryId($code)
     {
         $stm = $this->conn->prepare("SELECT id FROM countries WHERE code=:code");
-        $stm->bindParam(":code",$code);
-        $stm->execute();
-        $result = $stm->fetchColumn();
-        return $result;
+        try {
+            $stm->bindParam(":code", $code);
+            $stm->execute();
+            $result = $stm->fetchColumn();
+            return $result;
+        } catch (Error $e) {
+            return false;
+        }
     }
 }

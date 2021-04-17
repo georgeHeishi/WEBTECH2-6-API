@@ -1,5 +1,6 @@
 <?php
-require_once (__DIR__ . "/../database/Database.php");
+require_once(__DIR__ . "/../database/Database.php");
+require_once(__DIR__ . "/../models/Record.php");
 
 class RecordsController
 {
@@ -31,7 +32,7 @@ class RecordsController
         $this->insertStm->bindParam(":value", $this->value);
     }
 
-    public function insertRecord($day_id, $country_id, $type ,$value)
+    public function insertRecord($day_id, $country_id, $type, $value)
     {
         $this->day_id = $day_id;
         $this->country_id = $country_id;
@@ -39,6 +40,35 @@ class RecordsController
         $this->value = $value;
 
         $this->insertStm->execute();
+    }
+
+    public function selectByDayIdCountryId($dayId, $countryId, $type)
+    {
+        $stm = $this->conn->prepare("SELECT value FROM records WHERE day_id=:day_id AND country_id=:country_id AND type=:type");
+        try {
+            $stm->bindParam(":day_id", $dayId, PDO::PARAM_INT);
+            $stm->bindParam(":country_id", $countryId, PDO::PARAM_INT);
+            $stm->bindParam(":type", $type);
+            $stm->execute();
+            $stm->setFetchMode(PDO::FETCH_CLASS, "Record");
+            return $stm->fetchAll();
+        } catch (Error $e) {
+            return false;
+        }
+    }
+
+    public function selectDayIdByValueCountryId($value, $countryId)
+    {
+        $stm = $this->conn->prepare("SELECT day_id FROM records WHERE value=:value AND country_id=:country_id AND type='name'");
+        try {
+            $stm->bindParam(":value", $value);
+            $stm->bindParam(":country_id", $countryId, PDO::PARAM_INT);
+            $stm->execute();
+            $stm->setFetchMode(PDO::FETCH_CLASS, "Record");
+            return $stm->fetch();
+        } catch (Error $e) {
+            return false;
+        }
     }
 
 }
