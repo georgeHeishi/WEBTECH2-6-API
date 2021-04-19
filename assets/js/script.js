@@ -26,17 +26,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     holidaysSubmit.addEventListener("click", () => {
-        const holidaysDay = document.getElementById("holidays-day");
         const holidaysCountry = document.getElementById("holidays-country");
-        const url = '/namedays/api/days/' + holidaysDay.value + '/countries/' + holidaysCountry.value + '/holidays';
+        const url = '/namedays/api/countries/' + holidaysCountry.value + '/holidays';
 
         request = createRequest(url,'GET');
         fetchRequest(request);
     });
 
     memorialsSubmit.addEventListener("click", () => {
-        const memorialsDay = document.getElementById("memorials-day");
-        const url = '/namedays/api/days/' + memorialsDay.value + '/memorials';
+        const url = '/namedays/api/memorials';
 
         request = createRequest(url,'GET');
         fetchRequest(request);
@@ -45,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
     createSubmit.addEventListener("click", () => {
         const createDay = document.getElementById("create-day");
         const createName = document.getElementById("create-name");
-        // const url = '/namedays/api.php/names/' + createName.value + '/namedays/' + createDay.value;
 
         const url = '/namedays/api/names'
         request = new Request(url,{

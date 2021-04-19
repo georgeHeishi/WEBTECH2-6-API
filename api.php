@@ -24,34 +24,35 @@ $handler = null;
 switch ($method) {
     case 'GET':
         $handler = new ReadHandler();
-        if (is_null($response = $handler->processRequest($request))) {
-            $response = array();
+        $response = array();
+        if (is_null($return = $handler->processRequest($request))) {
             $response["error"] = true;
             echo json_encode($response);
             http_response_code(404);
         } else {
             $response["error"] = false;
+            $response["data"] = $return;
             echo json_encode($response);
-            http_response_code(200);  //http_response_code — Get or Set the HTTP response code
+            http_response_code(200);
         }
         break;
     case 'POST':
         $handler = new CreateHandler();
+        $response = array();
         if (is_null($return = $handler->createName($request, $data))) {
-            $response = array();
             $response["error"] = true;
             echo json_encode($response);
             http_response_code(404);
         } else {
             if($return){
                 $response["error"] = false;
-                $response["record"] = array("name" => $data->name,"day" => $data->day);
+                $response["data"] = array("name" => $data->name,"day" => $data->day);
                 echo json_encode($response);
-                http_response_code(201);  //http_response_code — Get or Set the HTTP response code
+                http_response_code(201);
             }else{
                 $response["error"] = true;
                 echo json_encode($response);
-                http_response_code(409);  //http_response_code — Get or Set the HTTP response code
+                http_response_code(409);
             }
         }
         break;

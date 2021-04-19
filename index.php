@@ -62,13 +62,13 @@
                             dňom, na ktorý tieto sviatky pripadajú;</h4>
                         <form>
                             <div class="form-group">
-                                <label for="holidays-day">Deň sviatku (dd.mm.)</label>
-                                <input type="text" class="form-control" id="holidays-day" value="01.01.">
-                            </div>
-                            <div class="form-group">
                                 <label for="holidays-country">Kód štátu (SK alebo CZ)</label>
-                                <input type="text" class="form-control" id="holidays-country" value="SK">
+                                <select class="form-select" aria-label="Default select example" id="holidays-country">
+                                    <option value="SK" selected>Slovensko</option>
+                                    <option value="CZ">Česko</option>
+                                </select>
                             </div>
+
                             <button type="button" class="btn btn-primary" id="holidays-submit">Submit</button>
                         </form>
                     </div>
@@ -77,10 +77,6 @@
                         <h4>Získať zoznam všetkých pamätných dní na Slovensku (element "SKdni") spolu s
                             dňom, na ktorý tieto dni pripadajú</h4>
                         <form>
-                            <div class="form-group">
-                                <label for="memorials-day">Pamäťný deň (dd.mm.)</label>
-                                <input type="text" class="form-control" id="memorials-day" value="01.01.">
-                            </div>
                             <button type="button" class="btn btn-primary" id="memorials-submit">Submit</button>
                         </form>
                     </div>

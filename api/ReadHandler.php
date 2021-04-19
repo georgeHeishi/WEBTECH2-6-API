@@ -11,12 +11,12 @@ class ReadHandler
 
     public function processRequest($request)
     {
-        if(count($request) == 4){
+        if (count($request) == 4) {
             $response = match ($request[0]) {
                 "days" => $this->readByNameday($request),
                 "names" => $this->readByName($request),
             };
-        }else{
+        } else {
             if (in_array(end($request), self::validCollections)) {
                 $response = $this->readCollection($request);
             } else {
@@ -34,8 +34,29 @@ class ReadHandler
             return null;
         }
 
-        if (is_null($response = $this->readByDayCountryType($request, 'name'))) {
+        $date = $this->parseDate($request[1]);
+        if (count($date) != 2) {
             return null;
+        }
+        $dayController = new DaysController();
+        $dayId = $dayController->selectDayId($date["day"], $date["month"]);
+
+        $countriesController = new CountriesController();
+        $countryId = $countriesController->selectCountryId(trim($request[3]));
+
+        if ($dayId == false || $countryId == false) {
+            return null;
+        }
+
+        $records = (new RecordsController())->selectByDayIdCountryId(intval($dayId), intval($countryId), "name");
+        if ($records == false) {
+            return null;
+        }
+
+        $response = array();
+
+        foreach ($records as $record) {
+            array_push($response, $record->getValue());
         }
 
         return array("names" => $response);
@@ -72,9 +93,6 @@ class ReadHandler
     public
     function readCollection($request)
     {
-        if (strcmp(trim($request[0]), "days")) {
-            return null;
-        }
         switch (end($request)) {
             case "holidays":
             {
@@ -94,11 +112,11 @@ class ReadHandler
     public
     function readHolidays($request)
     {
-        if (count($request) != 5 || strcmp(trim($request[2]), "countries") != 0) {
+        if (count($request) != 3 || strcmp(trim($request[0]), "countries") != 0) {
             return null;
         }
 
-        if (is_null($response = $this->readByDayCountryType($request, 'holiday'))) {
+        if (is_null($response = $this->readCollectionFromDb($request[1],'holiday'))) {
             return null;
         }
 
@@ -108,39 +126,27 @@ class ReadHandler
     public
     function readMemorials($request)
     {
-        if (count($request) != 3) {
+        if (count($request) != 1) {
             return null;
         }
 
-        $array = array(1 => $request[1],
-            3 => "SK");
-
-        if (is_null($response = $this->readByDayCountryType($array, 'memorial'))) {
+        if (is_null($response = $this->readCollectionFromDb('SK','memorial'))) {
             return null;
         }
 
         return array("memorials" => $response);
     }
 
-
-    public
-    function readByDayCountryType($request, $type)
+    public function readCollectionFromDb($country, $type)
     {
-        $date = $this->parseDate($request[1]);
-        if (count($date) != 2) {
-            return null;
-        }
-        $dayController = new DaysController();
-        $dayId = $dayController->selectDayId($date["day"], $date["month"]);
-
         $countriesController = new CountriesController();
-        $countryId = $countriesController->selectCountryId(trim($request[3]));
+        $countryId = $countriesController->selectCountryId(trim($country));
 
-        if ($dayId == false || $countryId == false) {
+        if ($countryId == false) {
             return null;
         }
 
-        $records = (new RecordsController())->selectByDayIdCountryId(intval($dayId), intval($countryId), $type);
+        $records = (new RecordsController())->selectAllValueDayId(intval($countryId), trim($type));
         if ($records == false) {
             return null;
         }
@@ -148,8 +154,13 @@ class ReadHandler
         $response = array();
 
         foreach ($records as $record) {
-            array_push($response, $record->getValue());
+            $day = (new DaysController())->selectById($record->getDayId());
+            if ($day == false) {
+                return null;
+            }
+            array_push($response,array("value" => $record->getValue() , "day" => $day->getDay(), "month" => $day->getMonth()));
         }
+
         return $response;
     }
 

@@ -72,6 +72,19 @@ class RecordsController
         }
     }
 
+    public function selectAllValueDayId($countryId, $type){
+        $stm = $this->conn->prepare("SELECT value, day_id FROM records WHERE  country_id=:country_id AND type=:type");
+        try {
+            $stm->bindParam(":country_id", $countryId, PDO::PARAM_INT);
+            $stm->bindParam(":type", $type);
+            $stm->execute();
+            $stm->setFetchMode(PDO::FETCH_CLASS, "Record");
+            return $stm->fetchAll();
+        } catch (Error $e) {
+            return false;
+        }
+    }
+
     public function selectDayIdByValueCountryId($value, $countryId)
     {
         $stm = $this->conn->prepare("SELECT day_id FROM records WHERE value=:value AND country_id=:country_id AND type='name'");
