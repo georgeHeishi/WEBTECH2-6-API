@@ -3,3 +3,7 @@ RewriteEngine on
 
 # Rewrite for api.php
 RewriteRule ^api api.php [NC,L]
+
+RewriteRule ^documentation documentation.php [NC,L]
+
+RewriteRule ^load load.php [NC,L]

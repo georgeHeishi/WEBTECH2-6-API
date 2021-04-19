@@ -87,6 +87,5 @@ foreach ($xml->children() as $row) {
             $recordsController->insertRecord($day_id, $country_id, $type, $value);
         }
     }
-
-
 }
+header('Location: https://wt98.fei.stuba.sk/namedays/');
