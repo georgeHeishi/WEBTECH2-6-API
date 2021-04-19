@@ -1,0 +1,5 @@
+# Turn Rewrite Engine on
+RewriteEngine on
+
+# Rewrite for api.php
+RewriteRule ^api api.php [NC,L]

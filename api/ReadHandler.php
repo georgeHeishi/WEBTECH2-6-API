@@ -11,25 +11,24 @@ class ReadHandler
 
     public function processRequest($request)
     {
-        switch ($request[0]) {
-            case "namedays":
-                $response = $this->readByNameday($request);
-                break;
-            case "names":
-                $response = $this->readByName($request);
-                break;
-            default:
-                if (in_array(end($request), self::validCollections)) {
-                    $response = $this->readCollection($request);
-                } else {
-                    $response = null;
-                }
-                break;
+        if(count($request) == 4){
+            $response = match ($request[0]) {
+                "days" => $this->readByNameday($request),
+                "names" => $this->readByName($request),
+            };
+        }else{
+            if (in_array(end($request), self::validCollections)) {
+                $response = $this->readCollection($request);
+            } else {
+                $response = null;
+            }
         }
+
         return $response;
     }
 
-    public function readByNameday($request)
+    public
+    function readByNameday($request)
     {
         if (count($request) != 4 || strcmp(trim($request[2]), "countries") != 0) {
             return null;
@@ -42,7 +41,8 @@ class ReadHandler
         return array("names" => $response);
     }
 
-    public function readByName($request)
+    public
+    function readByName($request)
     {
         if (count($request) != 4 || strcmp(trim($request[2]), "countries") != 0) {
             return null;
@@ -69,7 +69,8 @@ class ReadHandler
         return array("date" => $date);
     }
 
-    public function readCollection($request)
+    public
+    function readCollection($request)
     {
         if (strcmp(trim($request[0]), "days")) {
             return null;
@@ -90,7 +91,8 @@ class ReadHandler
         }
     }
 
-    public function readHolidays($request)
+    public
+    function readHolidays($request)
     {
         if (count($request) != 5 || strcmp(trim($request[2]), "countries") != 0) {
             return null;
@@ -103,7 +105,8 @@ class ReadHandler
         return array("holidays" => $response);
     }
 
-    public function readMemorials($request)
+    public
+    function readMemorials($request)
     {
         if (count($request) != 3) {
             return null;
@@ -120,7 +123,8 @@ class ReadHandler
     }
 
 
-    public function readByDayCountryType($request, $type)
+    public
+    function readByDayCountryType($request, $type)
     {
         $date = $this->parseDate($request[1]);
         if (count($date) != 2) {
@@ -149,7 +153,8 @@ class ReadHandler
         return $response;
     }
 
-    public function parseDate($date)
+    public
+    function parseDate($date)
     {
         $parsedDate = array();
         $values = explode('.', trim($date));

@@ -6,12 +6,13 @@ require_once(__DIR__ . "/../classes/controllers/RecordsController.php");
 class CreateHandler
 {
 
-    public function createName($request)
+    public function createName($request, $body)
     {
-        if (count($request) != 4 || strcmp(trim($request[0]), "names") != 0 || strcmp(trim($request[2]), "namedays") != 0) {
+        if((count($request) != 1) || strcmp(trim($request[0]), "names")!=0 || !isset($body->name) || !isset($body->day)) {
             return null;
         }
-        $date = $this->parseDate($request[3]);
+
+        $date = $this->parseDate($body->day);
         if (count($date) != 2) {
             return null;
         }
@@ -30,7 +31,7 @@ class CreateHandler
         }
 
         $recordsController = new RecordsController();
-        if($recordsController->insertRecordNonIgnore(intval($dayId),intval($countryId),'name',$request[1])){
+        if($recordsController->insertRecordNonIgnore(intval($dayId),intval($countryId),'name',$body->name)){
             return true;
         }else{
             return false;

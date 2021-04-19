@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     namedaysSubmit.addEventListener("click", () => {
         const nameday = document.getElementById("nameday");
         const namedaysCountry = document.getElementById("namedays-country");
-        const url = '/namedays/api.php/namedays/' + nameday.value + '/countries/' + namedaysCountry.value;
+        const url = '/namedays/api/days/' + nameday.value + '/countries/' + namedaysCountry.value;
 
         request = createRequest(url,'GET');
         fetchRequest(request);
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     namesSubmit.addEventListener("click", () => {
         const name = document.getElementById("name");
         const namesCountry = document.getElementById("names-country");
-        const url = '/namedays/api.php/names/' + name.value + '/countries/' + namesCountry.value;
+        const url = '/namedays/api/names/' + name.value + '/countries/' + namesCountry.value;
 
         request = createRequest(url,'GET');
         fetchRequest(request);
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     holidaysSubmit.addEventListener("click", () => {
         const holidaysDay = document.getElementById("holidays-day");
         const holidaysCountry = document.getElementById("holidays-country");
-        const url = '/namedays/api.php/days/' + holidaysDay.value + '/countries/' + holidaysCountry.value + '/holidays';
+        const url = '/namedays/api/days/' + holidaysDay.value + '/countries/' + holidaysCountry.value + '/holidays';
 
         request = createRequest(url,'GET');
         fetchRequest(request);
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     memorialsSubmit.addEventListener("click", () => {
         const memorialsDay = document.getElementById("memorials-day");
-        const url = '/namedays/api.php/days/' + memorialsDay.value + '/memorials';
+        const url = '/namedays/api/days/' + memorialsDay.value + '/memorials';
 
         request = createRequest(url,'GET');
         fetchRequest(request);
@@ -45,9 +45,20 @@ document.addEventListener("DOMContentLoaded", () => {
     createSubmit.addEventListener("click", () => {
         const createDay = document.getElementById("create-day");
         const createName = document.getElementById("create-name");
-        const url = '/namedays/api.php/names/' + createName.value + '/namedays/' + createDay.value;
+        // const url = '/namedays/api.php/names/' + createName.value + '/namedays/' + createDay.value;
 
-        request = createRequest(url,'POST');
+        const url = '/namedays/api/names'
+        request = new Request(url,{
+            method: 'POST',
+            body: JSON.stringify({
+                name: createName.value,
+                day: createDay.value,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        })
+
         fetchRequest(request);
     })
 
