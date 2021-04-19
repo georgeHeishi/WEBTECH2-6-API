@@ -32,6 +32,18 @@ class CountriesController
         $this->insertStm->execute();
     }
 
+    public function selectById($id){
+        $stm = $this->conn->prepare("SELECT code FROM countries WHERE id=:id");
+        try {
+            $stm->bindParam(":id", $id, PDO::PARAM_INT);
+            $stm->execute();
+            $stm->setFetchMode(PDO::FETCH_CLASS, "Country");
+            return $stm->fetch();
+        } catch (Error $e) {
+            return false;
+        }
+    }
+
     public function selectCountryId($code)
     {
         $stm = $this->conn->prepare("SELECT id FROM countries WHERE code=:code");

@@ -57,12 +57,11 @@ class RecordsController
         }
     }
 
-    public function selectByDayIdCountryId($dayId, $countryId, $type)
+    public function selectByDayId($dayId, $type)
     {
-        $stm = $this->conn->prepare("SELECT value FROM records WHERE day_id=:day_id AND country_id=:country_id AND type=:type");
+        $stm = $this->conn->prepare("SELECT value,country_id FROM records WHERE day_id=:day_id AND type=:type");
         try {
             $stm->bindParam(":day_id", $dayId, PDO::PARAM_INT);
-            $stm->bindParam(":country_id", $countryId, PDO::PARAM_INT);
             $stm->bindParam(":type", $type);
             $stm->execute();
             $stm->setFetchMode(PDO::FETCH_CLASS, "Record");
@@ -93,7 +92,7 @@ class RecordsController
             $stm->bindParam(":country_id", $countryId, PDO::PARAM_INT);
             $stm->execute();
             $stm->setFetchMode(PDO::FETCH_CLASS, "Record");
-            return $stm->fetch();
+            return $stm->fetchAll();
         } catch (Error $e) {
             return false;
         }

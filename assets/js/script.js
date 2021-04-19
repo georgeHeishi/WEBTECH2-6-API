@@ -9,43 +9,81 @@ document.addEventListener("DOMContentLoaded", () => {
 
     namedaysSubmit.addEventListener("click", () => {
         const nameday = document.getElementById("nameday");
-        const namedaysCountry = document.getElementById("namedays-country");
-        const url = '/namedays/api/days/' + nameday.value + '/countries/' + namedaysCountry.value;
+        const namedaysResponse = document.getElementById("namedays-response");
+        const url = '/namedays/api/days/' + nameday.value;
 
-        request = createRequest(url,'GET');
-        fetchRequest(request);
+        request = new Request(url, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        });
+        fetch(request)
+            .then((response) => response.json())
+            .then((data) => {
+                alert(JSON.stringify(data));
+
+                console.log(data);
+            });
     });
 
     namesSubmit.addEventListener("click", () => {
         const name = document.getElementById("name");
         const namesCountry = document.getElementById("names-country");
+        const namesResponse = document.getElementById("names-response");
         const url = '/namedays/api/names/' + name.value + '/countries/' + namesCountry.value;
 
-        request = createRequest(url,'GET');
-        fetchRequest(request);
+        request = new Request(url, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        });
+        fetch(request)
+            .then((response) => response.json())
+            .then((data) => {
+                alert(JSON.stringify(data));
+
+                console.log(data);
+            });
     });
 
     holidaysSubmit.addEventListener("click", () => {
         const holidaysCountry = document.getElementById("holidays-country");
         const url = '/namedays/api/countries/' + holidaysCountry.value + '/holidays';
 
-        request = createRequest(url,'GET');
+        request = new Request(url, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        });
         fetchRequest(request);
     });
 
     memorialsSubmit.addEventListener("click", () => {
         const url = '/namedays/api/memorials';
 
-        request = createRequest(url,'GET');
-        fetchRequest(request);
-    })
+        request = new Request(url, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        });
+        fetch(request)
+            .then((response) => response.json())
+            .then((data) => {
+                alert(JSON.stringify(data));
+
+                console.log(data);
+            });    })
 
     createSubmit.addEventListener("click", () => {
         const createDay = document.getElementById("create-day");
         const createName = document.getElementById("create-name");
 
         const url = '/namedays/api/names'
-        request = new Request(url,{
+        request = new Request(url, {
             method: 'POST',
             body: JSON.stringify({
                 name: createName.value,
@@ -56,24 +94,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         })
 
-        fetchRequest(request);
-    })
-
-    function createRequest(url, method){
-        return new Request(url, {
-            method: method,
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8'
-            }
-        });
-    }
-
-    function fetchRequest(request){
         fetch(request)
             .then((response) => response.json())
             .then((data) => {
+                alert(JSON.stringify(data));
+
                 console.log(data);
-                document.getElementById("response").innerText = data;
             });
-    }
+    })
 });

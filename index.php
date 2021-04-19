@@ -22,9 +22,7 @@
         <div class="col-lg ">
             <main class="site-content">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div id="response"></div>
-                    </div>
+
                     <div class="row">
                         <h4>Na základe zadaného dátumu získať informáciu, kto má v daný deň meniny na
                             Slovensku, resp. v niektorom inom uvedenom štáte</h4>
@@ -33,17 +31,13 @@
                                 <label for="nameday">Deň menín (dd.mm.)</label>
                                 <input type="text" class="form-control" id="nameday" value="01.01.">
                             </div>
-                            <div class="form-group">
-                                <label for="namedays-country">Kód štátu (napr. SK)</label>
-                                <input type="text" class="form-control" id="namedays-country" value="SK">
-                            </div>
                             <button type="button" class="btn btn-primary" id="namedays-submit">Submit</button>
                         </form>
                     </div>
                     <hr>
                     <div class="row">
                         <h4>Na základe uvedeného mena a štátu získať informáciu, kedy má osoba s týmto
-                            menom meniny v danom štáte;</h4>
+                            menom meniny v danom štáte</h4>
                         <form>
                             <div class="form-group">
                                 <label for="name">Meno</label>

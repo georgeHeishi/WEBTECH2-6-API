@@ -1,4 +1,6 @@
 <?php
+header("Content-Type: application/json; charset=UTF-8");
+
 require_once(__DIR__ . "/../classes/controllers/DaysController.php");
 require_once(__DIR__ . "/../classes/controllers/CountriesController.php");
 require_once(__DIR__ . "/../classes/controllers/RecordsController.php");
