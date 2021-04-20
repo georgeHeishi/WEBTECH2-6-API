@@ -34,6 +34,9 @@ class RecordsController
 
     public function insertRecord($day_id, $country_id, $type, $value)
     {
+        if(strlen($value) < 1){
+            return;
+        }
         $this->day_id = $day_id;
         $this->country_id = $country_id;
         $this->type = $type;
