@@ -48,7 +48,7 @@ foreach ($xml->children() as $row) {
 
             $type = "name";
             foreach (explode(",", $row->$item) as $name) {
-                $value = trim(preg_replace('/[^a-z0-9_]+/i', '', $name));
+                $value = trim(preg_replace('/[\-]+/i', '', $name));
                 $recordsController->insertRecord($day_id, $country_id, $type, $value);
             }
         }
@@ -62,7 +62,7 @@ foreach ($xml->children() as $row) {
 
             $type = "holiday";
 
-            $value = trim(preg_replace('/[^a-z0-9_]+/i', '', $row->$item));
+            $value = trim($row->$item);
             $recordsController->insertRecord($day_id, $country_id, $type, $value);
         }
 
@@ -75,7 +75,7 @@ foreach ($xml->children() as $row) {
 
             $type = "memorial";
 
-            $value = trim(preg_replace('/[^a-z0-9_]+/i', '', $row->$item));
+            $value = trim($row->$item);
             $recordsController->insertRecord($day_id, $country_id, $type, $value);
         }
     }
@@ -84,7 +84,7 @@ foreach ($xml->children() as $row) {
     $country_id = $countriesController->selectCountryId("SK");
     foreach (explode(",", $row->SKd) as $name) {
 
-        $value = trim(preg_replace('/[^a-z0-9_]+/i', '', $name));
+        $value = trim(preg_replace('/[\-]+/i', '', $name));
         if (strlen($value) > 0) {
             $recordsController->insertRecord($day_id, $country_id, $type, $value);
         }
