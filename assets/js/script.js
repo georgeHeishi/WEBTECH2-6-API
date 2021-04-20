@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     namedaysSubmit.addEventListener("click", () => {
         const nameday = document.getElementById("nameday");
-        const namedaysResponse = document.getElementById("namedays-response");
         const url = '/namedays/api/days/' + nameday.value;
 
         request = new Request(url, {
@@ -21,8 +20,17 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(request)
             .then((response) => response.json())
             .then((data) => {
-                alert(JSON.stringify(data));
-
+                if (data.status === 200) {
+                    const div = document.getElementById("namedays-response");
+                    div.innerHTML = "";
+                    data.data.values.forEach((index, value) => {
+                        div.innerHTML += index.value + ": " + index.country + "<br>";
+                    })
+                } else {
+                    const div = document.getElementById("namedays-response");
+                    div.innerHTML = "";
+                    div.innerText += data.message;
+                }
                 console.log(data);
             });
     });
@@ -30,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
     namesSubmit.addEventListener("click", () => {
         const name = document.getElementById("name");
         const namesCountry = document.getElementById("names-country");
-        const namesResponse = document.getElementById("names-response");
         const url = '/namedays/api/names/' + name.value + '/countries/' + namesCountry.value;
 
         request = new Request(url, {
@@ -42,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(request)
             .then((response) => response.json())
             .then((data) => {
-                alert(JSON.stringify(data));
+                displayWithDate(data, "names-response");
 
                 console.log(data);
             });
@@ -58,7 +65,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 'Content-type': 'application/json; charset=UTF-8'
             }
         });
-        fetchRequest(request);
+        fetch(request)
+            .then((response) => response.json())
+            .then((data) => {
+                displayWithDate(data, "holidays-response");
+
+                console.log(data);
+            });
     });
 
     memorialsSubmit.addEventListener("click", () => {
@@ -73,10 +86,11 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(request)
             .then((response) => response.json())
             .then((data) => {
-                alert(JSON.stringify(data));
+                displayWithDate(data, "memorials-response");
 
                 console.log(data);
-            });    })
+            });
+    })
 
     createSubmit.addEventListener("click", () => {
         const createDay = document.getElementById("create-day");
@@ -97,9 +111,28 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(request)
             .then((response) => response.json())
             .then((data) => {
-                alert(JSON.stringify(data));
+                const div = document.getElementById("create-response");
+                div.innerHTML += data.message;
 
                 console.log(data);
             });
     })
+
+    function displayWithDate(data, id) {
+        if (data.status === 200) {
+            const div = document.getElementById(id);
+            div.innerHTML = "";
+            data.data.values.forEach((index) => {
+                let value = "";
+                if (typeof index.value !== 'undefined') {
+                    value = ": " + index.value;
+                }
+                div.innerHTML += index.day + ". " + index.month + ". " + value + "<br>";
+            })
+        } else {
+            const div = document.getElementById(id);
+            div.innerHTML = "";
+            div.innerText += data.message;
+        }
+    }
 });

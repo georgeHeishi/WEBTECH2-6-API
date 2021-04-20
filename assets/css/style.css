@@ -54,3 +54,7 @@ h1, a, p, label, input {
 ul > li{
     list-style-type: none;
 }
+.response{
+    min-height: 40px;
+    width: 100%;
+}

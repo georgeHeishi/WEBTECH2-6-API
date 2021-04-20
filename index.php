@@ -24,8 +24,7 @@
                 <div class="container-fluid">
 
                     <div class="row">
-                        <h4>Na základe zadaného dátumu získať informáciu, kto má v daný deň meniny na
-                            Slovensku, resp. v niektorom inom uvedenom štáte</h4>
+                        <h4>Hľadanie menín na základe zadaného dňa</h4>
                         <form>
                             <div class="form-group">
                                 <label for="nameday">Deň menín (dd.mm.)</label>
@@ -33,11 +32,14 @@
                             </div>
                             <button type="button" class="btn btn-primary" id="namedays-submit">Submit</button>
                         </form>
+                        <div class="row">
+                            <h5>Odpoveď:</h5>
+                            <div id="namedays-response" class="response shadow-sm border rounded "></div>
+                        </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <h4>Na základe uvedeného mena a štátu získať informáciu, kedy má osoba s týmto
-                            menom meniny v danom štáte</h4>
+                        <h4>Hľadanie dňa menín na základe zadaného mena a štátu</h4>
                         <form>
                             <div class="form-group">
                                 <label for="name">Meno</label>
@@ -49,11 +51,14 @@
                             </div>
                             <button type="button" class="btn btn-primary" id="names-submit">Submit</button>
                         </form>
+                        <div class="row">
+                            <h5>Odpoveď:</h5>
+                            <div id="names-response" class="response shadow-sm border rounded "></div>
+                        </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <h4>Získať zoznam všetkých sviatkov na Slovensku alebo v Česku (element "SKsviatky") spolu s
-                            dňom, na ktorý tieto sviatky pripadajú;</h4>
+                        <h4>Hľadanie kolekcie sviatkov s dňom na Slovensku alebo v Česku</h4>
                         <form>
                             <div class="form-group">
                                 <label for="holidays-country">Kód štátu (SK alebo CZ)</label>
@@ -65,18 +70,25 @@
 
                             <button type="button" class="btn btn-primary" id="holidays-submit">Submit</button>
                         </form>
+                        <div class="row">
+                            <h5>Odpoveď:</h5>
+                            <div id="holidays-response" class="response shadow-sm border rounded "></div>
+                        </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <h4>Získať zoznam všetkých pamätných dní na Slovensku (element "SKdni") spolu s
-                            dňom, na ktorý tieto dni pripadajú</h4>
+                        <h4>Hľadanie kolekcie pamätných dní s dňom na Slovensku</h4>
                         <form>
                             <button type="button" class="btn btn-primary" id="memorials-submit">Submit</button>
                         </form>
+                        <div class="row">
+                            <h5>Odpoveď:</h5>
+                            <div id="memorials-response" class="response shadow-sm border rounded "></div>
+                        </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <h4>Vložiť nové meno do kalendára (element "SKd") k určitému dňu.</h4>
+                        <h4>Vloženie mena do kalendára k slovenským menám</h4>
                         <form>
                             <div class="form-group">
                                 <label for="create-day">Deň menín (dd.mm.)</label>
@@ -86,6 +98,10 @@
                             </div>
                             <button type="button" class="btn btn-primary" id="create-submit">Submit</button>
                         </form>
+                        <div class="row">
+                            <h5>Odpoveď:</h5>
+                            <div id="create-response" class="response shadow-sm border rounded "></div>
+                        </div>
                     </div>
                 </div>
             </main>
